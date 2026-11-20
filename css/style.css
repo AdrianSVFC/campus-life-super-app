@@ -1,0 +1,159 @@
+/* =========================================================
+   Campus Life Super App - custom styles
+   Loaded AFTER Bootstrap so these rules can override it.
+   ========================================================= */
+
+/* ---------- 1. Color variables (one place to change the theme) ---------- */
+:root {
+  --brand: #1d3557;        /* dark blue - navbar, buttons */
+  --brand-light: #457b9d;  /* lighter blue - hovers */
+  --accent: #f4a261;       /* orange - call-to-action buttons */
+  --soft: #f1faee;         /* off-white page background */
+}
+
+/* ---------- 2. Page layout ---------- */
+/* Flex column on body keeps the footer at the bottom on short pages */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--soft);
+}
+
+/* ---------- 3. Accessibility: skip link ---------- */
+/* Hidden off-screen until it receives keyboard focus */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--accent);
+  color: #000;
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+}
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+/* Clear focus outline for keyboard users on all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- 4. Navbar & brand colors ---------- */
+.bg-brand {
+  background-color: var(--brand);
+}
+
+/* Custom button styles that follow Bootstrap's naming */
+.btn-brand {
+  background-color: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+.btn-brand:hover,
+.btn-brand:focus {
+  background-color: var(--brand-light);
+  border-color: var(--brand-light);
+  color: #fff;
+}
+.btn-outline-brand {
+  color: var(--brand);
+  border-color: var(--brand);
+}
+.btn-outline-brand:hover {
+  background-color: var(--brand);
+  color: #fff;
+}
+.btn-accent {
+  background-color: var(--accent);
+  color: #1b1b1b; /* dark text keeps good contrast on orange */
+  font-weight: 600;
+}
+.btn-accent:hover {
+  background-color: #e76f51;
+  color: #fff;
+}
+
+/* ---------- 5. Home page hero ---------- */
+.hero {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
+}
+.hero-kicker {
+  letter-spacing: 0.1em;
+  color: #a8dadc;
+}
+
+/* ---------- 6. Cards ---------- */
+.card {
+  border: none;
+  border-radius: 1rem;
+}
+
+/* Quick-access cards lift slightly on hover */
+.feature-card {
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.feature-card:hover,
+.feature-card:focus {
+  transform: translateY(-4px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12);
+}
+.feature-icon {
+  font-size: 2rem;
+}
+
+/* Weather widget big temperature */
+.weather-temp {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--brand);
+  line-height: 1;
+}
+
+/* ---------- 7. Events page ---------- */
+.event-card .badge {
+  text-transform: capitalize;
+}
+/* Colored left border shows the category at a glance */
+.event-card[data-category="sports"]   { border-left: 6px solid #2a9d8f; }
+.event-card[data-category="academic"] { border-left: 6px solid #457b9d; }
+.event-card[data-category="social"]   { border-left: 6px solid #e76f51; }
+.event-card[data-category="faith"]    { border-left: 6px solid #8d6cab; }
+
+/* ---------- 8. Dining page ---------- */
+.meal-box {
+  background-color: var(--soft);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  height: 100%;
+}
+.meal-box ul {
+  padding-left: 1.1rem;
+  margin-bottom: 0;
+}
+
+/* ---------- 9. Page headers ---------- */
+.page-header h1 {
+  color: var(--brand);
+}
+
+/* ---------- 10. Small screens ---------- */
+@media (max-width: 576px) {
+  .weather-temp {
+    font-size: 2.4rem;
+  }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card {
+    transition: none;
+  }
+}
