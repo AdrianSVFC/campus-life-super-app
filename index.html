@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Campus Life Super App: events, dining, clubs and weather for students in one place.">
+  <title>Home | Campus Life Super App</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+
+  <!-- Bootstrap CSS (loaded BEFORE my own stylesheet so my styles can override it) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- My custom styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Skip link: lets keyboard and screen-reader users jump straight to the main content -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===== HEADER / NAVIGATION (same on every page) ===== -->
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-brand" aria-label="Main navigation">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+          <img src="images/logo.svg" alt="" width="36" height="36">
+          <span>Campus Life</span>
+        </a>
+        <!-- Hamburger button for small screens (Bootstrap collapse) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="dining.html">Dining</a></li>
+            <li class="nav-item"><a class="nav-link" href="clubs.html">Clubs</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ===== HERO SECTION: greeting changes with the time of day (see script.js) ===== -->
+    <section class="hero text-white">
+      <div class="container py-5">
+        <p class="text-uppercase small mb-1 hero-kicker">Your campus, one app</p>
+        <h1 id="greeting" class="display-5 fw-bold">Welcome to campus!</h1>
+        <p class="lead mb-4">Check today's weather, find events, see what's for lunch and join a club, all in one place.</p>
+        <a href="events.html" class="btn btn-accent btn-lg">See this week's events</a>
+      </div>
+    </section>
+
+    <div class="container my-5">
+      <div class="row g-4">
+        <!-- ===== WEATHER WIDGET: filled with live data from the Open-Meteo API ===== -->
+        <section class="col-lg-5" aria-labelledby="weather-heading">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start">
+                <h2 id="weather-heading" class="h4 card-title">Campus Weather</h2>
+                <button id="refresh-weather" class="btn btn-sm btn-outline-secondary" type="button">
+                  Refresh
+                </button>
+              </div>
+              <p class="text-muted small mb-3">Blue Mountain, MS</p>
+              <!-- aria-live announces updates to screen readers when the data arrives -->
+              <div id="weather-output" aria-live="polite">
+                <p class="text-muted">Loading weather…</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== QUICK LINKS: cards that lead to the other features ===== -->
+        <section class="col-lg-7" aria-labelledby="quick-heading">
+          <h2 id="quick-heading" class="h4 mb-3">Quick Access</h2>
+          <div class="row g-3">
+            <div class="col-sm-4">
+              <a href="events.html" class="feature-card card h-100 text-decoration-none">
+                <div class="card-body">
+                  <span class="feature-icon" aria-hidden="true">📅</span>
+                  <h3 class="h6 mt-2">Events</h3>
+                  <p class="small text-muted mb-0">Games, worship, study nights and more.</p>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-4">
+              <a href="dining.html" class="feature-card card h-100 text-decoration-none">
+                <div class="card-body">
+                  <span class="feature-icon" aria-hidden="true">🍽️</span>
+                  <h3 class="h6 mt-2">Dining</h3>
+                  <p class="small text-muted mb-0">Daily menu and cafeteria hours.</p>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-4">
+              <a href="clubs.html" class="feature-card card h-100 text-decoration-none">
+                <div class="card-body">
+                  <span class="feature-icon" aria-hidden="true">🤝</span>
+                  <h3 class="h6 mt-2">Clubs</h3>
+                  <p class="small text-muted mb-0">Find your people and sign up.</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- ===== NEXT EVENT preview: filled by JavaScript from the events data ===== -->
+          <div class="card mt-3 shadow-sm">
+            <div class="card-body">
+              <h2 class="h6 text-uppercase text-muted mb-2">Next up on campus</h2>
+              <div id="next-event"><p class="mb-0 text-muted">Loading…</p></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER (same on every page) ===== -->
+  <footer class="bg-dark text-light py-4 mt-auto">
+    <div class="container d-flex flex-column flex-md-row justify-content-between gap-2 small">
+      <p class="mb-0">&copy; <span id="year"></span> Campus Life Super App</p>
+      <p class="mb-0">Weather data by <a class="link-light" href="https://open-meteo.com/">Open-Meteo</a></p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS bundle (needed for the mobile menu) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- My JavaScript (shared by all pages) -->
+  <script src="js/script.js"></script>
+</body>
+</html>
